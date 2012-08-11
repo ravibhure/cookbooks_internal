@@ -5,7 +5,7 @@
 # http://www.rightscale.com/terms.php and, if applicable, other agreements such
 # as a RightScale Master Subscription Agreement.
 
-rs_utils_marker :begin
+rightscale_marker :begin
 
 case node[:platform]
 when 'centos'
@@ -42,5 +42,5 @@ else
   Chef::Log.fatal("Unsupported platform '#{node[:platform]}'")
 end
 
-rs_utils_marker :end
+rightscale_marker :end
 

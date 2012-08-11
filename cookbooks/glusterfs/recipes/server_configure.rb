@@ -1,4 +1,4 @@
-rs_utils_marker :begin
+rightscale_marker :begin
 
 ETC_DIR  = "/etc/glusterfs"
 VOL_FILE = "#{ETC_DIR}/glusterd.vol"
@@ -43,4 +43,4 @@ when 'ubuntu'
   end
 end
 
-rs_utils_marker :end
+rightscale_marker :end

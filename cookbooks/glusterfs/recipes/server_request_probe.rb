@@ -1,4 +1,4 @@
-rs_utils_marker :begin
+rightscale_marker :begin
 
 TAG = node[:glusterfs][:tag][:attached]
 
@@ -43,4 +43,4 @@ end
 log "===> Tagging myself with '#{TAG}=true'"
 right_link_tag "#{TAG}=true"
 
-rs_utils_marker :end
+rightscale_marker :end

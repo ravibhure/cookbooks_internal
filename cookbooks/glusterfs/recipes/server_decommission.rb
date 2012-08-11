@@ -1,7 +1,7 @@
 # For the final version of this cookbook, this recipe would do something like
 # detach the server from the cluster and remove (and possibly add) some tags.
 
-rs_utils_marker :begin
+rightscale_marker :begin
 
 #
 # Delete some tags
@@ -30,4 +30,4 @@ log "===> Setting tag #{tag}=none"
 right_link_tag "#{tag}=none"
 
 
-rs_utils_marker :end
+rightscale_marker :end

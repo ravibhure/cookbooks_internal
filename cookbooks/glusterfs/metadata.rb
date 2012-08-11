@@ -4,7 +4,7 @@ license          "Apache 2.0"
 description      "GlusterFS recipes" 
 version          "0.0.2"
 
-depends "rs_utils"
+depends "rightscale"
 #depends "aria2"
 
 recipe "glusterfs::default", "Sets attributes but does nothing"

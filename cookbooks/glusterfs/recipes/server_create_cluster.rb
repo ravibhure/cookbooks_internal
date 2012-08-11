@@ -1,4 +1,4 @@
-rs_utils_marker :begin
+rightscale_marker :begin
 
 TAG_SPARE  = node[:glusterfs][:tag][:spare]
 VOL_NAME   = node[:glusterfs][:volume_name]
@@ -81,4 +81,4 @@ remote_recipe "delete_tag" do
   recipients_tags "#{TAG_SPARE}=true"
 end
   
-rs_utils_marker :end
+rightscale_marker :end

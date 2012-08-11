@@ -1,4 +1,4 @@
-rs_utils_marker :begin
+rightscale_marker :begin
 
 TAG_VOLUME = node[:glusterfs][:tag][:volume]
 TAG_BRICK  = node[:glusterfs][:tag][:brick]
@@ -16,4 +16,4 @@ right_link_tag "#{TAG_BRICK}=#{INPUT_BRICK}"
 log "===> Tagging myself with #{TAG_SPARE}=true"
 right_link_tag "#{TAG_SPARE}=true"
 
-rs_utils_marker :end
+rightscale_marker :end
