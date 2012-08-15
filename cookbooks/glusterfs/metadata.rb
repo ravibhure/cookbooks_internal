@@ -11,10 +11,10 @@ recipe "glusterfs::default", "Sets attributes but does nothing"
 recipe "glusterfs::install", "Download and installs glusterfs "
 recipe "glusterfs::server_configure", "Configures glusterd"
 recipe "glusterfs::server_set_tags", "Add 'glusterfs:*' tags so other servers can find us"
-recipe "glusterfs::server_request_probe", "Find an existing/attached GlusterFS server and request to be attached to the cluster"
-recipe "glusterfs::server_handle_probe_request", "Remote recipe intended to be called by glusterfs::server_request_probe"
 recipe "glusterfs::server_create_cluster", "Finds tagged servers and initializes the GlusterFS volume"
-recipe "glusterfs::server_handle_tag_delete", "Remote recipe intended to be called by glusterfs::server_create_cluster"
+recipe "glusterfs::server_join_cluster", "Find an existing/attached GlusterFS server and request to be attached to the cluster"
+recipe "glusterfs::server_handle_probe_request", "Remote recipe intended to be called by glusterfs::server_request_probe"
+recipe "glusterfs::server_handle_tag_updates", "Remote recipe intended to be called by glusterfs::server_create_cluster"
 recipe "glusterfs::server_decommission", "Remove some tags so new clients/peers won't find us"
 recipe "glusterfs::client_mount_volume", "Runs mount(8) with `-t glusterfs' option to mount glusterfs"
 
@@ -32,6 +32,7 @@ attribute "glusterfs/volume_name",
     :required     => "required",
     :recipes      => [ "glusterfs::server_set_tags",
                        "glusterfs::server_create_cluster",
+                       "glusterfs::server_join_cluster",
                        "glusterfs::client_mount_volume" ]
 
 attribute "glusterfs/server/storage_path",
@@ -39,20 +40,16 @@ attribute "glusterfs/server/storage_path",
     :description  => "The directory path to be used as a brick and added to the GlusterFS volume",
     :required     => "required",
     :recipes      => [ "glusterfs::server_set_tags",
-                       "glusterfs::server_create_cluster"]
+                       "glusterfs::server_create_cluster",
+                       "glusterfs::server_join_cluster" ]
 
 attribute "glusterfs/server/replica_count",
     :display_name => "Replica Count",
     :description  => "The directory path to be added to the volume as a brick",
     :required     => "optional",
     :default      => "1",
-    :recipes      => [ "glusterfs::server_create_cluster" ]
-
-#attribute "glusterfs/server/peer",
-#    :display_name => "Peer Name",
-#    :description  => "The hostname or IP of the peer to attach",
-#    :required     => "optional",
-#    :recipes      => [ "glusterfs::server_handle_probe_request"]
+    :recipes      => [ "glusterfs::server_create_cluster",
+                       "glusterfs::server_join_cluster" ]
 
 attribute "glusterfs/client/mount_point",
     :display_name => "Mount point",

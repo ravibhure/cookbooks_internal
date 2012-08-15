@@ -28,6 +28,7 @@
       "recipes": [
         "glusterfs::server_set_tags",
         "glusterfs::server_create_cluster",
+        "glusterfs::server_join_cluster",
         "glusterfs::client_mount_volume"
       ],
       "choice": [
@@ -42,7 +43,8 @@
       "required": "required",
       "recipes": [
         "glusterfs::server_set_tags",
-        "glusterfs::server_create_cluster"
+        "glusterfs::server_create_cluster",
+        "glusterfs::server_join_cluster"
       ],
       "choice": [
 
@@ -56,7 +58,8 @@
       "required": "optional",
       "default": "1",
       "recipes": [
-        "glusterfs::server_create_cluster"
+        "glusterfs::server_create_cluster",
+        "glusterfs::server_join_cluster"
       ],
       "choice": [
 
@@ -99,10 +102,10 @@
     "glusterfs::install": "Download and installs glusterfs ",
     "glusterfs::server_configure": "Configures glusterd",
     "glusterfs::server_set_tags": "Add 'glusterfs:*' tags so other servers can find us",
-    "glusterfs::server_request_probe": "Find an existing/attached GlusterFS server and request to be attached to the cluster",
-    "glusterfs::server_handle_probe_request": "Remote recipe intended to be called by glusterfs::server_request_probe",
     "glusterfs::server_create_cluster": "Finds tagged servers and initializes the GlusterFS volume",
-    "glusterfs::server_handle_tag_delete": "Remote recipe intended to be called by glusterfs::server_create_cluster",
+    "glusterfs::server_join_cluster": "Find an existing/attached GlusterFS server and request to be attached to the cluster",
+    "glusterfs::server_handle_probe_request": "Remote recipe intended to be called by glusterfs::server_request_probe",
+    "glusterfs::server_handle_tag_updates": "Remote recipe intended to be called by glusterfs::server_create_cluster",
     "glusterfs::server_decommission": "Remove some tags so new clients/peers won't find us",
     "glusterfs::client_mount_volume": "Runs mount(8) with `-t glusterfs' option to mount glusterfs"
   },
