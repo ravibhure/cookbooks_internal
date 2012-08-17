@@ -14,9 +14,13 @@ recipe "glusterfs::server_set_tags", "Add 'glusterfs:*' tags so other servers ca
 recipe "glusterfs::server_create_cluster", "Finds tagged servers and initializes the GlusterFS volume"
 recipe "glusterfs::server_join_cluster", "Find an existing/attached GlusterFS server and request to be attached to the cluster"
 recipe "glusterfs::server_handle_probe_request", "Remote recipe intended to be called by glusterfs::server_request_probe"
+recipe "glusterfs::server_handle_detach_request", "Remote recipe intended to be called by glusterfs::server_decommission"
 recipe "glusterfs::server_handle_tag_updates", "Remote recipe intended to be called by glusterfs::server_create_cluster"
 recipe "glusterfs::server_decommission", "Remove some tags so new clients/peers won't find us"
 recipe "glusterfs::client_mount_volume", "Runs mount(8) with `-t glusterfs' option to mount glusterfs"
+
+# TODO  Make an attribute with volume types choices (distributed, striped,
+#       replicated, etc.) and use it in server_create_cluster accordingly.
 
 #attribute "glusterfs/package_url",
 #    :display_name => "Download URL",
