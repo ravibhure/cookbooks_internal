@@ -6,5 +6,8 @@
 
 rightscale_marker :begin
 
+# What to do here?
+# Need to learn about the "default" model we use
+
 rightscale_marker :end
 

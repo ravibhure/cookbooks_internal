@@ -18,11 +18,6 @@ end
 
 log "===> Enabling glusterd service"
 case node[:platform]
-when 'centos'
-  # TODO epel package doesn't have an init script
-  execute "glusterd" do
-      not_if "pgrep glusterd"
-  end
 when 'ubuntu'
   service "glusterd" do
     action [ :enable, :start ]
@@ -40,6 +35,11 @@ when 'ubuntu'
         [ $i -eq 10 ] && break
       done
     EOF
+  end
+when 'centos'
+  # TODO epel package doesn't have an init script
+  execute "glusterd" do
+      not_if "pgrep glusterd"
   end
 end
 

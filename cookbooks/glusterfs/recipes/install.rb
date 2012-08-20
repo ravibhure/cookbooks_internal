@@ -8,9 +8,6 @@
 rightscale_marker :begin
 
 case node[:platform]
-when 'centos'
-  package "glusterfs" # from epel
-
 when 'ubuntu'
   # TODO Add Ubuntu support
   #      Should use apt-add-repository and apt-get install the package
@@ -38,8 +35,10 @@ when 'ubuntu'
   #  source "/tmp/#{URI.unescape(PKG)}"
   #  action :install
   #end
+when 'centos'
+  package "glusterfs" # from epel
 else
-  Chef::Log.fatal("Unsupported platform '#{node[:platform]}'")
+  raise "Unsupported platform '#{node[:platform]}'"
 end
 
 rightscale_marker :end
