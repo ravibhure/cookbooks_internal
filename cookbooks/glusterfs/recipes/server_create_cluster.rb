@@ -38,9 +38,31 @@ ruby_block "Probe spares and create volume" do
         Chef::Log.info "===> Skipping myself (#{ip})"
         next
       end
-      Chef::Log.info "===> Gluster peer probe #{ip}"
-      system "gluster peer probe #{ip} &> #{CMD_LOG}"
-      GlusterFS::Error.check(CMD_LOG, "Adding #{ip} to cluster")
+
+      # first check if peer is already connected!
+      # (If he is already connected, it's probably from a previous failure of
+      # this recipe since he's still marked as spare)
+      peered = false
+      begin
+        Chef::Log.info "===> Checking if #{ip} is already peered"
+        output = IO.popen("gluster peer status")
+        output.readlines.each do |line|
+          if (line.chomp =~ /^Hostname:\s+#{Regexp.escape(ip)}$/)
+            Chef::Log.info "===>  + already peered!? skipping host"
+            peered = true  # skip this host we already know about him somehow
+            break
+          end
+        end
+      rescue => e
+        raise "`gluster peer status' failed: #{e.message}"
+      end
+
+      # send the probe
+      if ! peered
+        Chef::Log.info "===>  - not peered, sending probe command"
+        system "gluster peer probe #{ip} &> #{CMD_LOG}"
+        GlusterFS::Error.check(CMD_LOG, "Adding #{ip} to cluster")
+      end
     end
 
     # The replication count determines what number of bricks you need when
